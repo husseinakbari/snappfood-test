@@ -1,11 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, {useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleVisible, saveNote, updateNote } from "../store/actions";
 
 const Notemodal = () => {
   const dispatch = useDispatch();
   const { note } = useSelector(state => state);
-  const inputNote = useRef(null);
   const [noteText, setNoteText] = useState(
     note.noteContent ? note.noteContent.text : ""
   );
@@ -13,12 +12,11 @@ const Notemodal = () => {
   const handleButton = type => {
     switch (type) {
       case "save":
-        const text = inputNote.current.value;
-        if (text.length > 0) {
+        if (noteText.length > 0) {
           if (note.noteContent) {
             dispatch(updateNote(note.noteContent.id, noteText));
           } else {
-            dispatch(saveNote(text));
+            dispatch(saveNote(noteText));
           }
         }
 
@@ -49,7 +47,6 @@ const Notemodal = () => {
                 id=""
                 cols="30"
                 rows="10"
-                ref={inputNote}
                 value={noteText}
                 onChange={e => {
                   e.preventDefault();
