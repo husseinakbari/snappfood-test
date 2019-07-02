@@ -323,7 +323,7 @@ main {
   }
   .action-bar {
     @extend %grid-x, %align-middle, %align-justify, %w100;
-    border: 1px solid red;
+    border-bottom: 2px solid #000;
     height: 5em;
     padding: 0 1em;
     h4 {
@@ -335,17 +335,35 @@ main {
   }
   .note-list {
     @extend %w100 , %grid-x;
-    border: 1px solid blue;
     width: 100%;
     padding: 1em;
     .note {
-      width: 8em;
+      @extend %grid-y , %align-around;
+      width: 16.7em;
       height: 8em;
       background-color: #5867dd;
       color: #fff;
       border-radius: 7px;
       padding: 7px;
       margin: 7px;
+      p {
+        font-size: 14px;
+        line-height: 21px;
+      }
+      .action {
+        @extend %w100 , %grid-x-no;
+        button {
+          @extend %btn;
+          margin: 2px;
+        }
+        button:first-child {
+          @extend %btn, %btn-warning;
+        }
+        button:nth-child(2) {
+          @extend %btn, %btn-danger;
+        }
+      }
+      
     }
   }
 }

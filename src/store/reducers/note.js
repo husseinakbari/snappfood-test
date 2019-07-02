@@ -1,9 +1,10 @@
-import { SAVENOTE , NOTEVISIBILE } from "../actions/types";
+import { SAVENOTE , NOTEVISIBILE , SHOWNOTE ,UPDATENOTE , DELETENOTE} from "../actions/types";
 
 const initialState = {
   visibility : false,
   notes : [],
-  conter : 0
+  conter : 0,
+  noteContent : undefined
 };
 
 export default (state = initialState, action) => {
@@ -15,13 +16,44 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notes : array,
-        conter : state.conter + 1
+        conter : state.conter + 1,
+        visibility : false,
       };
     case NOTEVISIBILE:
-      console.log(action)
       return {
         ...state,
-        visibility : action.payload
+        visibility : action.payload,
+        noteContent : undefined
+      };
+    case SHOWNOTE:
+      return {
+        ...state,
+        visibility : true,
+        noteContent : {
+          id : action.payload.id,
+          text : action.payload.text
+        }
+      };
+   
+    case UPDATENOTE:
+      let result = [...state.notes];
+      const index = result.findIndex(el => el.id === action.payload.id);
+      result[index].text = action.payload.text
+      return {
+        ...state,
+        notes : result,
+        visibility : false
+      };
+    case DELETENOTE:
+      let result2 = [...state.notes];
+      let filter = result2.filter(function(value, index, arr){
+        return value.id !== action.payload
+      });
+
+      return {
+        ...state,
+        notes : filter,
+        visibility : false,
       };
 
     default:

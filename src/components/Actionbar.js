@@ -6,7 +6,7 @@ const Actionbar = () => {
     const dispatch = useDispatch()
     return (
         <div className="action-bar">
-            <h4>Note List</h4>
+            <h4>Your Notes</h4>
             <button
                 onClick={e => {
                     e.preventDefault();
